@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion Clinique</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { min-height: 100vh; display: flex; flex-direction: column; }
+        .wrapper { display: flex; flex: 1; }
+        #sidebar { min-width: 250px; max-width: 250px; background: #212529; color: white; transition: all 0.3s; }
+        #sidebar .nav-link { color: rgba(255,255,255,.75); border-radius: 5px; margin: 5px 10px; }
+        #sidebar .nav-link:hover { color: white; background: rgba(255,255,255,.1); }
+        #sidebar .nav-link.active { color: white; background: #0d6efd; }
+        main { flex: 1; background-color: #f8f9fa; }
+        footer { background: white; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-secondary">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="/dashboard">🏥 CLINIQUE APP</a>
+            <div class="navbar-nav ms-auto">
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">
+                        👤 <span th:text="${#authentication != null ? #authentication.name : 'Utilisateur'}">User</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#">Profil</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger" href="/logout">Déconnexion</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="wrapper">
+        <nav id="sidebar" class="d-none d-md-block">
+            <div class="pt-4">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" th:href="@{/dashboard}">📊 Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/patients/list}">👥 Patients</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/rdv/list}">📅 Rendez-vous</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/medecins/list}">👨‍⚕️ Médecins</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <main class="p-4">
+            <div class="container-fluid">
+                <div layout:fragment="content"></div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="py-3 border-top mt-auto">
+        <div class="container-fluid text-center">
+            <span class="text-muted">© 2026 Projet Master Réseaux & Télécoms - Groupe Clinique</span>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

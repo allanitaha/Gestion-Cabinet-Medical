@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+    <title>Tableau de Bord</title>
+</head>
+<body>
+
+    <div layout:fragment="content">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">📊 Tableau de Bord</h1>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-start border-primary border-4 shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Patients</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">128</div>
+                            </div>
+                            <div class="col-auto">
+                                <span style="font-size: 2rem;">👥</span>
+                            </div>
+                        </div>
+                        <a href="/patients/list" class="btn btn-outline-primary btn-sm mt-3">Gérer les patients</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-start border-success border-4 shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Médecins Actifs</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">12</div>
+                            </div>
+                            <div class="col-auto">
+                                <span style="font-size: 2rem;">👨‍⚕️</span>
+                            </div>
+                        </div>
+                        <a th:href="@{/medecins/list}" class="btn btn-outline-success btn-sm mt-3">Voir l'équipe</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-start border-warning border-4 shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">RDV Aujourd'hui</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">24</div>
+                            </div>
+                            <div class="col-auto">
+                                <span style="font-size: 2rem;">📅</span>
+                            </div>
+                        </div>
+                        <a th:href="@{/rdv/list}" class="btn btn-outline-warning btn-sm mt-3">Voir le planning</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5 p-5 bg-white shadow-sm rounded">
+            <h3>Bienvenue dans le système de gestion</h3>
+            <p class="lead">Utilisez le menu à gauche pour naviguer entre les différentes sections de la clinique.</p>
+        </div>
+    </div>
+
+</body>
+</html>
