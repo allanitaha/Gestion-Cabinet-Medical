@@ -1,0 +1,36 @@
+.rdv-new-page .rdv-new-hero {
+    margin-bottom: 1.3rem;
+}
+
+.rdv-new-page {
+    max-width: 980px;
+    margin: 0 auto;
+}
+
+.rdv-new-page .alert {
+    margin-bottom: 1rem;
+}
+
+.rdv-new-page form .form-label {
+    font-weight: 700;
+    color: #334155;
+}
+
+.rdv-new-page .rdv-new-card .card-body {
+    padding: 1.4rem;
+}
+
+.rdv-new-page .form-select,
+.rdv-new-page .form-control {
+    background-color: #fff;
+}
+
+.rdv-new-page .btn-modern {
+    min-width: 150px;
+}
+
+@media (max-width: 768px) {
+    .rdv-new-page .btn-modern {
+        width: 100%;
+    }
+}

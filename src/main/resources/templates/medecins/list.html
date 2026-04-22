@@ -3,19 +3,25 @@
 	layout:decorate="~{layout/layout}">
 <head>
 	<title>Médecins</title>
+	<link rel="stylesheet" th:href="@{/css/medecins-list.css}">
 </head>
 <body>
 	<div layout:fragment="content">
-		<div class="d-flex justify-content-between align-items-center mb-3">
-			<h1 class="h3 mb-0">Médecins</h1>
+		<div class="page-hero d-flex justify-content-between align-items-center flex-wrap gap-2">
+			<h1 class="h3 mb-0 text-white"><i class="fas fa-user-doctor me-2"></i>Médecins</h1>
+			<span class="badge bg-success" th:text="'Total: ' + ${medecins?.size() ?: 0}">Total: 0</span>
 		</div>
-		<div class="card shadow-sm">
+
+		<div class="card modern-card">
+			<div class="card-header">
+				<h5 class="mb-0">Équipe médicale</h5>
+			</div>
 			<div class="card-body">
 				<div class="table-responsive">
-					<table class="table table-striped align-middle mb-0">
+					<table class="table table-striped table-modern align-middle mb-0">
 						<thead>
 							<tr>
-								<th>#</th>
+								<th style="width: 5%;">#</th>
 								<th>Nom</th>
 								<th>Prénom</th>
 								<th>Spécialité</th>
@@ -27,20 +33,31 @@
 						</thead>
 						<tbody>
 							<tr th:if="${medecins == null || #lists.isEmpty(medecins)}">
-								<td colspan="8" class="text-muted">Aucun médecin.</td>
+								<td colspan="8">
+									<div class="empty-state">
+										<i class="fas fa-inbox"></i>
+										<p class="text-muted mb-0">Aucun médecin pour le moment</p>
+									</div>
+								</td>
 							</tr>
 							<tr th:each="m : ${medecins}">
 								<td th:text="${m.id}">1</td>
-								<td th:text="${m.nom}">Nom</td>
+								<td class="fw-600" th:text="${m.nom}">Nom</td>
 								<td th:text="${m.prenom}">Prénom</td>
-								<td th:text="${m.specialite}">Spécialité</td>
-								<td th:text="${m.numeroOrdre}">ORDRE</td>
-								<td th:text="${m.telephone}">0000</td>
-								<td th:text="${m.email}">email@domaine.com</td>
+								<td>
+									<span class="badge bg-info" th:text="${m.specialite ?: 'N/A'}">Spécialité</span>
+								</td>
+								<td><code th:text="${m.numeroOrdre}">ORDRE</code></td>
+								<td>
+									<a th:href="'tel:' + ${m.telephone}" th:text="${m.telephone}">0000</a>
+								</td>
+								<td>
+									<a th:href="'mailto:' + ${m.email}" th:text="${m.email}">email@domaine.com</a>
+								</td>
 								<td>
 									<span class="badge"
 									      th:classappend="${m.actif} ? ' text-bg-success' : ' text-bg-secondary'"
-									      th:text="${m.actif} ? 'Oui' : 'Non'">Oui</span>
+									      th:text="${m.actif} ? '✓ Oui' : '✗ Non'">Oui</span>
 								</td>
 							</tr>
 						</tbody>

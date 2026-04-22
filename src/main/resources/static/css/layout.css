@@ -1,0 +1,205 @@
+:root {
+    --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
+    --success-color: #198754;
+    --danger-color: #dc3545;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f5f7fb;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.wrapper { display: flex; flex: 1; }
+
+.navbar {
+    background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%) !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 1rem 0;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+#sidebar {
+    min-width: 260px;
+    max-width: 260px;
+    background: linear-gradient(180deg, #1a1d29 0%, #242836 100%);
+    color: white;
+    transition: all 0.3s ease;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.15);
+}
+
+#sidebar .nav-link {
+    color: rgba(255,255,255,0.8);
+    border-radius: 8px;
+    margin: 8px 12px;
+    padding: 10px 15px;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+#sidebar .nav-link:hover {
+    color: white;
+    background: rgba(13, 110, 253, 0.15);
+    transform: translateX(5px);
+}
+
+#sidebar .nav-link.active {
+    color: white;
+    background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+}
+
+#sidebar .text-uppercase {
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    margin-top: 20px;
+}
+
+main {
+    flex: 1;
+    background-color: #f5f7fb;
+    overflow-y: auto;
+}
+
+main > .container-fluid { padding: 2rem; }
+
+.card {
+    border: none;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+    transform: translateY(-2px);
+}
+
+.card-header {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: none;
+    font-weight: 600;
+    padding: 1.25rem;
+}
+
+.btn {
+    border: none;
+    border-radius: 8px;
+    padding: 0.6rem 1.25rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+}
+
+.btn-primary:hover {
+    box-shadow: 0 6px 16px rgba(13, 110, 253, 0.4);
+    transform: translateY(-2px);
+}
+
+.btn-outline-primary {
+    border: 2px solid #0d6efd;
+    color: #0d6efd;
+}
+
+.btn-outline-primary:hover {
+    background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+    border-color: #0d6efd;
+}
+
+.btn-success { background: linear-gradient(135deg, #198754 0%, #157347 100%); }
+.btn-danger { background: linear-gradient(135deg, #dc3545 0%, #bd2130 100%); }
+
+.table { font-size: 0.95rem; }
+.table-striped > tbody > tr:nth-of-type(odd) { background-color: rgba(13, 110, 253, 0.05); }
+
+.table thead th {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    font-weight: 600;
+    color: #333;
+    border: none;
+    padding: 1rem;
+}
+
+.form-control, .form-select {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    transition: all 0.2s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.form-label {
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.alert {
+    border: none;
+    border-radius: 10px;
+    border-left: 4px solid;
+}
+
+.alert-success {
+    border-left-color: #198754;
+    background: rgba(25, 135, 84, 0.1);
+}
+
+.alert-danger {
+    border-left-color: #dc3545;
+    background: rgba(220, 53, 69, 0.1);
+}
+
+.alert-info {
+    border-left-color: #0d6efd;
+    background: rgba(13, 110, 253, 0.1);
+}
+
+footer {
+    background: white;
+    border-top: 1px solid #e9ecef;
+    margin-top: auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #1a1d29;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+    #sidebar {
+        position: fixed;
+        left: -260px;
+        top: 56px;
+        height: calc(100vh - 56px);
+        z-index: 1000;
+    }
+
+    #sidebar.show { left: 0; }
+    main { width: 100%; }
+}
+
+.badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 500;
+}

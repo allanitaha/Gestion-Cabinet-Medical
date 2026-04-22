@@ -1,0 +1,51 @@
+.admin-page .admin-hero {
+    margin-bottom: 1.2rem;
+}
+
+.admin-page {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.admin-page .admin-tabs {
+    border-bottom: none;
+    gap: 0.35rem;
+}
+
+.admin-page .admin-tabs .nav-link {
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    background: #f8fafc;
+    color: #334155;
+    border-radius: 12px 12px 0 0;
+    font-weight: 700;
+    padding: 0.65rem 1rem;
+}
+
+.admin-page .admin-tabs .nav-link.active {
+    color: #fff;
+    border-color: transparent;
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.22);
+}
+
+.admin-page .tab-content {
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    border-radius: 0 14px 14px 14px;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.admin-page .tab-content .card {
+    border: 1px solid rgba(148, 163, 184, 0.22);
+}
+
+.admin-page .tab-content .card-body h2 {
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+    .admin-page .tab-content {
+        border-radius: 0 0 12px 12px;
+        padding: 0.7rem;
+    }
+}

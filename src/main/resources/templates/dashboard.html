@@ -4,73 +4,100 @@
       layout:decorate="~{layout/layout}">
 <head>
     <title>Tableau de Bord</title>
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
 </head>
 <body>
 
     <div layout:fragment="content">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">📊 Tableau de Bord</h1>
+        <div class="page-hero">
+            <h1 class="h3 mb-2 text-white"><i class="fas fa-chart-pie me-2"></i>Tableau de Bord</h1>
+            <p class="mb-0 text-white-50">Bienvenue, <span th:text="${#authentication != null ? #authentication.name : 'Utilisateur'}">User</span></p>
+        </div>
+
+        <div class="row g-4 mt-2">
+            <div class="col-lg-4 col-md-6">
+                <div class="card stat-card modern-card primary h-100">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div>
+                                <p class="stat-label mb-2">Total Patients</p>
+                                <p class="stat-number mb-3" th:text="${patientsCount}">0</p>
+                                <a href="/patients/list" class="btn btn-outline-primary btn-sm btn-modern">Gérer →</a>
+                            </div>
+                            <div class="stat-icon">👥</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="card stat-card modern-card success h-100">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div>
+                                <p class="stat-label mb-2">Médecins</p>
+                                <p class="stat-number mb-3" th:text="${medecinsCount}">0</p>
+                                <a th:href="@{/medecins/list}" class="btn btn-outline-success btn-sm btn-modern">Voir l'équipe →</a>
+                            </div>
+                            <div class="stat-icon">👨‍⚕️</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="card stat-card modern-card warning h-100">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div>
+                                <p class="stat-label mb-2">Rendez-vous</p>
+                                <p class="stat-number mb-3" th:text="${rdvCount}">0</p>
+                                <a th:href="@{/rdv/list}" class="btn btn-outline-warning btn-sm btn-modern">Voir le planning →</a>
+                            </div>
+                            <div class="stat-icon">📅</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="welcome-card">
+            <h3>🏥 Bienvenue dans le système de gestion</h3>
+            <p>Utilisez le menu à gauche pour naviguer entre les différentes sections de la clinique. Vous pouvez gérer les patients, médecins et rendez-vous de manière efficace.</p>
         </div>
 
         <div class="row mt-4">
-            <div class="col-xl-4 col-md-6 mb-4">
-                <div class="card border-start border-primary border-4 shadow h-100 py-2">
+            <div class="col-lg-12">
+                <div class="card modern-card">
+                    <div class="card-header">
+                        <h5 class="mb-0">📋 Actions rapides</h5>
+                    </div>
                     <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Patients</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"
-                                     th:text="${patientsCount}">0</div>
+                        <div class="row g-2">
+                            <div class="col-md-6 col-lg-3">
+                                <a href="/patients/list" class="btn btn-outline-primary w-100">
+                                    <i class="fas fa-users"></i> Gérer Patients
+                                </a>
                             </div>
-                            <div class="col-auto">
-                                <span style="font-size: 2rem;">👥</span>
+                            <div class="col-md-6 col-lg-3">
+                                <a href="/medecins/list" class="btn btn-outline-success w-100">
+                                    <i class="fas fa-stethoscope"></i> Voir Médecins
+                                </a>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <a href="/rdv/list" class="btn btn-outline-warning w-100">
+                                    <i class="fas fa-calendar"></i> Rendez-vous
+                                </a>
+                            </div>
+                            <div class="col-md-6 col-lg-3" sec:authorize="hasRole('PATIENT')">
+                                <a href="/patient/rdv/new" class="btn btn-outline-info w-100">
+                                    <i class="fas fa-plus-circle"></i> Nouveau RDV
+                                </a>
                             </div>
                         </div>
-                        <a href="/patients/list" class="btn btn-outline-primary btn-sm mt-3">Gérer les patients</a>
                     </div>
                 </div>
             </div>
-
-            <div class="col-xl-4 col-md-6 mb-4">
-                <div class="card border-start border-success border-4 shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Médecins</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"
-                                     th:text="${medecinsCount}">0</div>
-                            </div>
-                            <div class="col-auto">
-                                <span style="font-size: 2rem;">👨‍⚕️</span>
-                            </div>
-                        </div>
-                        <a th:href="@{/medecins/list}" class="btn btn-outline-success btn-sm mt-3">Voir l'équipe</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-4 col-md-6 mb-4">
-                <div class="card border-start border-warning border-4 shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Rendez-vous</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"
-                                     th:text="${rdvCount}">0</div>
-                            </div>
-                            <div class="col-auto">
-                                <span style="font-size: 2rem;">📅</span>
-                            </div>
-                        </div>
-                        <a th:href="@{/rdv/list}" class="btn btn-outline-warning btn-sm mt-3">Voir le planning</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="mt-5 p-5 bg-white shadow-sm rounded">
-            <h3>Bienvenue dans le système de gestion</h3>
-            <p class="lead">Utilisez le menu à gauche pour naviguer entre les différentes sections de la clinique.</p>
         </div>
     </div>
 
