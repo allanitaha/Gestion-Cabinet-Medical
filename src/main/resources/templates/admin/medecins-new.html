@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/layout}">
+<head>
+	<title>Créer médecin</title>
+</head>
+<body>
+<div layout:fragment="content">
+	<div class="d-flex justify-content-between align-items-center mb-3">
+		<h1 class="h3 mb-0">Créer un médecin</h1>
+	</div>
+
+	<div class="alert alert-success" th:if="${param.created}">Médecin créé.</div>
+
+	<div class="card shadow-sm mb-4">
+		<div class="card-body">
+			<form th:action="@{/admin/medecins}" method="post" class="row g-3">
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+				<div class="col-md-4">
+					<label class="form-label">Nom</label>
+					<input class="form-control" name="nom" required>
+				</div>
+				<div class="col-md-4">
+					<label class="form-label">Prénom</label>
+					<input class="form-control" name="prenom" required>
+				</div>
+				<div class="col-md-4">
+					<label class="form-label">Spécialité</label>
+					<input class="form-control" name="specialite">
+				</div>
+
+				<div class="col-md-4">
+					<label class="form-label">N° ordre</label>
+					<input class="form-control" name="numeroOrdre" required>
+				</div>
+				<div class="col-md-4">
+					<label class="form-label">Téléphone</label>
+					<input class="form-control" name="telephone">
+				</div>
+				<div class="col-md-4">
+					<label class="form-label">Email</label>
+					<input class="form-control" name="email" type="email">
+				</div>
+
+				<div class="col-12">
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox" name="actif" value="true" checked>
+						<label class="form-check-label">Actif</label>
+					</div>
+				</div>
+
+				<div class="col-12">
+					<button class="btn btn-primary" type="submit">Créer</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div class="card shadow-sm">
+		<div class="card-body">
+			<h2 class="h5">Médecins existants</h2>
+			<div class="table-responsive">
+				<table class="table table-striped align-middle mb-0">
+					<thead>
+					<tr>
+						<th>#</th>
+						<th>Nom</th>
+						<th>Prénom</th>
+						<th>Spécialité</th>
+						<th>N° ordre</th>
+						<th>Actif</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr th:if="${medecins == null || #lists.isEmpty(medecins)}">
+						<td colspan="6" class="text-muted">Aucun médecin.</td>
+					</tr>
+					<tr th:each="m : ${medecins}">
+						<td th:text="${m.id}">1</td>
+						<td th:text="${m.nom}">Nom</td>
+						<td th:text="${m.prenom}">Prénom</td>
+						<td th:text="${m.specialite}">Spécialité</td>
+						<td th:text="${m.numeroOrdre}">ORDRE</td>
+						<td th:text="${m.actif} ? 'Oui' : 'Non'">Oui</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

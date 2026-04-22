@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/layout}">
+<head>
+	<title>Créer patient</title>
+</head>
+<body>
+<div layout:fragment="content">
+	<div class="d-flex justify-content-between align-items-center mb-3">
+		<h1 class="h3 mb-0">Créer un patient</h1>
+	</div>
+
+	<div class="alert alert-success" th:if="${param.created}">Patient créé.</div>
+	<div class="alert alert-danger" th:if="${param.error}">
+		Erreur: <span th:text="${param.error}">error</span>
+	</div>
+
+	<div class="card shadow-sm mb-4">
+		<div class="card-body">
+			<form th:action="@{/admin/patients}" method="post" class="row g-3">
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+				<div class="col-md-6">
+					<label class="form-label">Username (connexion patient)</label>
+					<input class="form-control" name="username" required>
+				</div>
+				<div class="col-md-6">
+					<label class="form-label">Mot de passe</label>
+					<input class="form-control" name="password" type="password" required>
+				</div>
+
+				<div class="col-md-4">
+					<label class="form-label">CIN</label>
+					<input class="form-control" name="cin" required>
+				</div>
+				<div class="col-md-4">
+					<label class="form-label">Nom</label>
+					<input class="form-control" name="nom" required>
+				</div>
+				<div class="col-md-4">
+					<label class="form-label">Prénom</label>
+					<input class="form-control" name="prenom" required>
+				</div>
+
+				<div class="col-md-4">
+					<label class="form-label">Téléphone</label>
+					<input class="form-control" name="telephone">
+				</div>
+				<div class="col-md-4">
+					<label class="form-label">Email</label>
+					<input class="form-control" name="email" type="email">
+				</div>
+				<div class="col-md-4">
+					<label class="form-label">Date de naissance</label>
+					<input class="form-control" name="dateNaissance" type="date">
+				</div>
+
+				<div class="col-12">
+					<button class="btn btn-primary" type="submit">Créer</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div class="card shadow-sm">
+		<div class="card-body">
+			<h2 class="h5">Patients existants</h2>
+			<div class="table-responsive">
+				<table class="table table-striped align-middle mb-0">
+					<thead>
+					<tr>
+						<th>#</th>
+						<th>CIN</th>
+						<th>Nom</th>
+						<th>Prénom</th>
+						<th>Email</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr th:if="${patients == null || #lists.isEmpty(patients)}">
+						<td colspan="5" class="text-muted">Aucun patient.</td>
+					</tr>
+					<tr th:each="p : ${patients}">
+						<td th:text="${p.id}">1</td>
+						<td th:text="${p.cin}">CIN</td>
+						<td th:text="${p.nom}">Nom</td>
+						<td th:text="${p.prenom}">Prénom</td>
+						<td th:text="${p.email}">email</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

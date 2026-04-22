@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+    <title>Choix de destination</title>
+</head>
+<body>
+<div layout:fragment="content" class="container py-4">
+    <h1 class="h3 mb-4">Choisissez votre destination</h1>
+    <p class="text-muted">Après connexion, sélectionnez la page que vous souhaitez ouvrir.</p>
+
+    <div class="row g-3 mt-1">
+        <div class="col-md-6" th:if="${isAdmin}">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h2 class="h5">Espace Administration</h2>
+                    <p class="mb-3">Ajouter des patients, médecins et créneaux.</p>
+                    <a class="btn btn-primary" th:href="@{/admin}">Aller vers Admin</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h2 class="h5">Tableau de bord</h2>
+                    <p class="mb-3">Voir les statistiques et la vue globale.</p>
+                    <a class="btn btn-outline-primary" th:href="@{/dashboard}">Aller au Tableau de Bord</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6" th:if="${isPatient}">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h2 class="h5">Rendez-vous Patient</h2>
+                    <p class="mb-3">Réserver un créneau disponible.</p>
+                    <a class="btn btn-success" th:href="@{/patient/rdv/new}">Prendre un rendez-vous</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

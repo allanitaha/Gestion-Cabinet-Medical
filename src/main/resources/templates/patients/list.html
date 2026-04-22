@@ -9,8 +9,38 @@
 		<div class="d-flex justify-content-between align-items-center mb-3">
 			<h1 class="h3 mb-0">Patients</h1>
 		</div>
-		<div class="alert alert-info mb-0">
-			Page prête. Prochaine étape: brancher la liste sur la base de données (JPA).
+		<div class="card shadow-sm">
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-striped align-middle mb-0">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>CIN</th>
+								<th>Nom</th>
+								<th>Prénom</th>
+								<th>Téléphone</th>
+								<th>Email</th>
+								<th>Date de naissance</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:if="${patients == null || #lists.isEmpty(patients)}">
+								<td colspan="7" class="text-muted">Aucun patient.</td>
+							</tr>
+							<tr th:each="p : ${patients}">
+								<td th:text="${p.id}">1</td>
+								<td th:text="${p.cin}">AA0000</td>
+								<td th:text="${p.nom}">Nom</td>
+								<td th:text="${p.prenom}">Prénom</td>
+								<td th:text="${p.telephone}">0000</td>
+								<td th:text="${p.email}">email@domaine.com</td>
+								<td th:text="${p.dateNaissance}">2000-01-01</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>

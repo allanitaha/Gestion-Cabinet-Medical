@@ -9,8 +9,44 @@
 		<div class="d-flex justify-content-between align-items-center mb-3">
 			<h1 class="h3 mb-0">Médecins</h1>
 		</div>
-		<div class="alert alert-info mb-0">
-			Page prête. Prochaine étape: brancher la liste sur la base de données (JPA).
+		<div class="card shadow-sm">
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-striped align-middle mb-0">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Nom</th>
+								<th>Prénom</th>
+								<th>Spécialité</th>
+								<th>N° ordre</th>
+								<th>Téléphone</th>
+								<th>Email</th>
+								<th>Actif</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:if="${medecins == null || #lists.isEmpty(medecins)}">
+								<td colspan="8" class="text-muted">Aucun médecin.</td>
+							</tr>
+							<tr th:each="m : ${medecins}">
+								<td th:text="${m.id}">1</td>
+								<td th:text="${m.nom}">Nom</td>
+								<td th:text="${m.prenom}">Prénom</td>
+								<td th:text="${m.specialite}">Spécialité</td>
+								<td th:text="${m.numeroOrdre}">ORDRE</td>
+								<td th:text="${m.telephone}">0000</td>
+								<td th:text="${m.email}">email@domaine.com</td>
+								<td>
+									<span class="badge"
+									      th:classappend="${m.actif} ? ' text-bg-success' : ' text-bg-secondary'"
+									      th:text="${m.actif} ? 'Oui' : 'Non'">Oui</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>
