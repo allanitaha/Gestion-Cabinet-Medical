@@ -1,0 +1,50 @@
+.list-hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.medecins-hero {
+    background:
+        radial-gradient(circle at 84% 38%, rgba(69, 194, 238, 0.2), transparent 15rem),
+        linear-gradient(135deg, #ffffff 0%, #f6fbff 100%);
+}
+
+.list-card { overflow: hidden; }
+
+.list-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.table-modern td,
+.table-modern th { vertical-align: middle; }
+
+.table-modern a {
+    color: var(--primary-color);
+    font-weight: 750;
+    text-decoration: none;
+}
+
+.table-modern a:hover { text-decoration: underline; }
+
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+}
+
+.empty-state i {
+    color: #b8d7f5;
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+    .list-hero {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}

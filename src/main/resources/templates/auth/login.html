@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Connexion - Gestion Clinique</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+	<link rel="stylesheet" th:href="@{/css/login.css}">
+</head>
+<body>
+	<nav class="auth-navbar">
+		<a class="auth-brand" th:href="@{/login}">
+			<span><i class="fas fa-hospital-user"></i></span>
+			Clinique
+		</a>
+		<div class="auth-nav-links">
+			<a th:href="@{/login}">Connexion</a>
+			<a class="btn btn-primary text-white" th:href="@{/register}">Compte patient</a>
+		</div>
+	</nav>
+	<div class="container py-4">
+		<div class="row justify-content-center">
+			<div class="col-md-6 col-lg-5">
+				<div class="card login-card">
+					<div class="card-body">
+						<div class="login-header">
+							<h1><i class="fas fa-hospital-user"></i> CLINIQUE</h1>
+							<p>Gestion cabinet medical</p>
+						</div>
+
+						<div class="alert alert-success" th:if="${param.logout}">
+							Vous avez ete deconnecte avec succes.
+						</div>
+						<div class="alert alert-success" th:if="${param.registered}">
+							Compte patient cree. Connectez-vous avec votre nom d'utilisateur.
+						</div>
+						<div class="alert alert-danger" th:if="${param.error}">
+							Identifiants invalides. Veuillez reessayer.
+						</div>
+
+						<form th:action="@{/login}" method="post">
+							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+							<div class="mb-3">
+								<label class="form-label">
+									<i class="fas fa-user"></i> Nom d'utilisateur
+								</label>
+								<input class="form-control" type="text" name="username" autocomplete="username" placeholder="admin, secretaire ou votre nom" required>
+							</div>
+							<div class="mb-3">
+								<label class="form-label">
+									<i class="fas fa-lock"></i> Mot de passe
+								</label>
+								<input class="form-control" type="password" name="password" autocomplete="current-password" placeholder="Votre mot de passe" required>
+							</div>
+							<button class="btn btn-login btn-primary w-100 text-white" type="submit">
+								<i class="fas fa-sign-in-alt"></i> Se connecter
+							</button>
+						</form>
+
+						<a class="btn btn-outline-primary w-100 mt-3" th:href="@{/register}">
+							<i class="fas fa-user-plus"></i> Creer un compte patient
+						</a>
+
+						<div class="divider"></div>
+
+						<div class="credentials-info">
+							<small class="d-block mb-2"><strong>Identifiants de test</strong></small>
+							<small>
+								<div><i class="fas fa-user-shield"></i> <strong>Admin:</strong> <code>admin</code> / <code>admin123</code></div>
+								<div><i class="fas fa-user-tie"></i> <strong>Secretaire:</strong> <code>secretaire</code> / <code>secretaire123</code></div>
+								<div><i class="fas fa-user-circle"></i> <strong>Patient:</strong> <code>patient</code> / <code>patient123</code></div>
+							</small>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

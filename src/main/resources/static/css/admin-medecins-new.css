@@ -1,0 +1,19 @@
+.card .card-body {
+    padding: 1.45rem;
+}
+
+.form-check {
+    padding: 0.9rem 1rem 0.9rem 2.65rem;
+    background: #f6fbff;
+    border: 1px solid #dbeaff;
+    border-radius: 16px;
+}
+
+.form-check-label {
+    color: #29415f;
+    font-weight: 800;
+}
+
+.modern-card {
+    overflow: hidden;
+}

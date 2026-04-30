@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<nav class="navbar navbar-expand-lg app-navbar" th:fragment="navbar">
+    <div class="container-fluid px-0">
+        <a class="navbar-brand" sec:authorize="!hasRole('PATIENT')" th:href="@{/dashboard}">
+            <span class="brand-mark"><i class="fas fa-hospital-user"></i></span>
+            <span>Clinique</span>
+        </a>
+        <a class="navbar-brand" sec:authorize="hasRole('PATIENT')" th:href="@{/patient/rdv/new}">
+            <span class="brand-mark"><i class="fas fa-hospital-user"></i></span>
+            <span>Clinique</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNavbar">
+            <ul class="navbar-nav app-nav-links mx-auto">
+                <li class="nav-item" sec:authorize="hasAnyRole('ADMIN','SECRETAIRE')">
+                    <a class="nav-link" th:classappend="${currentPath == '/dashboard'} ? ' active'" th:href="@{/dashboard}">Dashboard</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasAnyRole('ADMIN','SECRETAIRE')">
+                    <a class="nav-link" th:classappend="${#strings.startsWith(currentPath, '/patients')} ? ' active'" th:href="@{/patients/list}">Patients</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasAnyRole('ADMIN','SECRETAIRE')">
+                    <a class="nav-link" th:classappend="${#strings.startsWith(currentPath, '/rdv')} ? ' active'" th:href="@{/rdv/list}">Rendez-vous</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:classappend="${#strings.startsWith(currentPath, '/medecins')} ? ' active'" th:href="@{/medecins/list}">Médecins</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link" th:classappend="${#strings.startsWith(currentPath, '/admin')} ? ' active'" th:href="@{/admin}">Admin</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('PATIENT')">
+                    <a class="nav-link" th:classappend="${#strings.startsWith(currentPath, '/patient/rdv')} ? ' active'" th:href="@{/patient/rdv/new}">Réserver RDV</a>
+                </li>
+            </ul>
+            <div class="d-flex align-items-center gap-3">
+                <span class="user-menu"><i class="fas fa-user-circle me-2"></i><span th:text="${#authentication != null ? #authentication.name : 'Utilisateur'}">User</span></span>
+                <form th:action="@{/logout}" method="post">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <button type="submit" class="btn btn-primary">Déconnexion</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

@@ -1,0 +1,40 @@
+.choose-page .choose-hero {
+    margin-bottom: 1.4rem;
+    text-align: center;
+}
+
+.choose-page {
+    max-width: 980px;
+    margin: 0 auto;
+}
+
+.choose-page .choose-card {
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.96);
+    background:
+        radial-gradient(circle at 100% 0, rgba(52, 120, 246, 0.1), transparent 12rem),
+        #ffffff;
+}
+
+.choose-page .choose-card .card-body {
+    padding: 1.55rem;
+}
+
+.choose-page .choose-card h2 {
+    margin-bottom: 0.65rem;
+    font-weight: 850;
+}
+
+.choose-page .choose-card p {
+    color: var(--muted-color);
+}
+
+.choose-page .btn {
+    min-width: 205px;
+}
+
+@media (max-width: 768px) {
+    .choose-page .btn {
+        min-width: 100%;
+    }
+}

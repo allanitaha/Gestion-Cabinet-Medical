@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Creer un compte patient</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+	<link rel="stylesheet" th:href="@{/css/login.css}">
+</head>
+<body>
+	<nav class="auth-navbar">
+		<a class="auth-brand" th:href="@{/login}">
+			<span><i class="fas fa-hospital-user"></i></span>
+			Clinique
+		</a>
+		<div class="auth-nav-links">
+			<a th:href="@{/login}">Connexion</a>
+			<a class="btn btn-primary text-white" th:href="@{/register}">Compte patient</a>
+		</div>
+	</nav>
+	<div class="container py-4">
+		<div class="row justify-content-center">
+			<div class="col-lg-7">
+				<div class="card login-card">
+					<div class="card-body">
+						<div class="login-header">
+							<h1><i class="fas fa-user-plus"></i> PATIENT</h1>
+							<p>Creez votre compte pour reserver un rendez-vous</p>
+						</div>
+
+						<div class="alert alert-danger" th:if="${param.error}">
+							Ce nom d'utilisateur existe deja.
+						</div>
+
+						<form th:action="@{/register}" method="post" class="row g-3">
+							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+							<div class="col-md-6">
+								<label class="form-label">Nom d'utilisateur</label>
+								<input class="form-control" name="username" autocomplete="username" placeholder="ex: sara.benali" required>
+							</div>
+							<div class="col-md-6">
+								<label class="form-label">Mot de passe</label>
+								<input class="form-control" name="password" type="password" autocomplete="new-password" minlength="6" required>
+							</div>
+
+							<div class="col-md-4">
+								<label class="form-label">CIN</label>
+								<input class="form-control" name="cin" required>
+							</div>
+							<div class="col-md-4">
+								<label class="form-label">Nom</label>
+								<input class="form-control" name="nom" required>
+							</div>
+							<div class="col-md-4">
+								<label class="form-label">Prenom</label>
+								<input class="form-control" name="prenom" required>
+							</div>
+
+							<div class="col-md-4">
+								<label class="form-label">Telephone</label>
+								<input class="form-control" name="telephone">
+							</div>
+							<div class="col-md-4">
+								<label class="form-label">Email</label>
+								<input class="form-control" name="email" type="email">
+							</div>
+							<div class="col-md-4">
+								<label class="form-label">Date de naissance</label>
+								<input class="form-control" name="dateNaissance" type="date">
+							</div>
+
+							<div class="col-12 d-grid gap-2">
+								<button class="btn btn-primary btn-login" type="submit">
+									<i class="fas fa-check"></i> Creer mon compte
+								</button>
+								<a class="btn btn-outline-secondary" th:href="@{/login}">
+									J'ai deja un compte
+								</a>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

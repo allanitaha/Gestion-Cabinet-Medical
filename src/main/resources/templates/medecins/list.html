@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout/layout}">
+<head>
+    <title>Médecins</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/layout.css}">
+    <link rel="stylesheet" th:href="@{/css/medecins-list.css}">
+</head>
+<body>
+    <div th:replace="~{layout/fragments :: navbar}"></div>
+    <div layout:fragment="content">
+        <div class="page-hero list-hero medecins-hero">
+            <div>
+                <div class="page-eyebrow">Équipe médicale</div>
+                <h1 class="h2 mb-2 text-white"><i class="fas fa-user-doctor me-2"></i>Médecins</h1>
+                <p class="mb-0 text-white-50">Retrouvez les spécialités, coordonnées et statuts des praticiens.</p>
+            </div>
+            <div class="hero-actions">
+                <a class="btn btn-light" sec:authorize="hasRole('ADMIN')" th:href="@{/admin/medecins/new}">
+                    <i class="fas fa-user-doctor me-2"></i>Ajouter
+                </a>
+                <span class="metric-badge"><i class="fas fa-stethoscope"></i><span th:text="${medecins?.size() ?: 0}">0</span> médecins</span>
+            </div>
+        </div>
+
+        <div class="card modern-card list-card">
+            <div class="card-header list-card-header">
+                <div>
+                    <h2 class="h5 mb-1">Annuaire médical</h2>
+                    <p class="mb-0 text-muted">Médecins actifs affichés en priorité.</p>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-striped table-modern align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th style="width: 5%;">#</th>
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>Spécialité</th>
+                                <th>N° ordre</th>
+                                <th>Téléphone</th>
+                                <th>Email</th>
+                                <th>Actif</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:if="${medecins == null || #lists.isEmpty(medecins)}">
+                                <td colspan="8">
+                                    <div class="empty-state">
+                                        <i class="fas fa-folder-open"></i>
+                                        <p class="text-muted mb-0">Aucun médecin pour le moment</p>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr th:each="m : ${medecins}">
+                                <td th:text="${m.id}">1</td>
+                                <td class="fw-semibold" th:text="${m.nom}">Nom</td>
+                                <td th:text="${m.prenom}">Prénom</td>
+                                <td><span class="badge text-bg-info" th:text="${m.specialite ?: 'N/A'}">Spécialité</span></td>
+                                <td><code th:text="${m.numeroOrdre}">ORDRE</code></td>
+                                <td><a th:href="'tel:' + ${m.telephone}" th:text="${m.telephone}">0000</a></td>
+                                <td><a th:href="'mailto:' + ${m.email}" th:text="${m.email}">email@domaine.com</a></td>
+                                <td>
+                                    <span class="badge"
+                                          th:classappend="${m.actif} ? ' text-bg-success' : ' text-bg-secondary'"
+                                          th:text="${m.actif} ? 'Oui' : 'Non'">Oui</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

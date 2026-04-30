@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout/layout}">
+<head>
+    <title>Patients</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/layout.css}">
+    <link rel="stylesheet" th:href="@{/css/patients-list.css}">
+</head>
+<body>
+    <div th:replace="~{layout/fragments :: navbar}"></div>
+    <div layout:fragment="content">
+        <div class="page-hero list-hero">
+            <div>
+                <div class="page-eyebrow">Dossiers patients</div>
+                <h1 class="h2 mb-2 text-white"><i class="fas fa-users me-2"></i>Patients</h1>
+                <p class="mb-0 text-white-50">Consultez les informations de contact et les profils enregistrés.</p>
+            </div>
+            <div class="hero-actions">
+                <a class="btn btn-light" sec:authorize="hasRole('ADMIN')" th:href="@{/admin/patients/new}">
+                    <i class="fas fa-user-plus me-2"></i>Ajouter
+                </a>
+                <span class="metric-badge"><i class="fas fa-users"></i><span th:text="${patients?.size() ?: 0}">0</span> patients</span>
+            </div>
+        </div>
+
+        <div class="card modern-card list-card">
+            <div class="card-header list-card-header">
+                <div>
+                    <h2 class="h5 mb-1">Liste complète</h2>
+                    <p class="mb-0 text-muted">Triée par nom et prénom.</p>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-striped table-modern align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th style="width: 5%;">#</th>
+                                <th>CIN</th>
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>Téléphone</th>
+                                <th>Email</th>
+                                <th>Date de naissance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:if="${patients == null || #lists.isEmpty(patients)}">
+                                <td colspan="7">
+                                    <div class="empty-state">
+                                        <i class="fas fa-folder-open"></i>
+                                        <p class="text-muted mb-0">Aucun patient pour le moment</p>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr th:each="p : ${patients}">
+                                <td th:text="${p.id}">1</td>
+                                <td><code th:text="${p.cin}">AA0000</code></td>
+                                <td class="fw-semibold" th:text="${p.nom}">Nom</td>
+                                <td th:text="${p.prenom}">Prénom</td>
+                                <td><a th:href="'tel:' + ${p.telephone}" th:text="${p.telephone}">0000</a></td>
+                                <td><a th:href="'mailto:' + ${p.email}" th:text="${p.email}">email@domaine.com</a></td>
+                                <td th:text="${p.dateNaissance != null ? #temporals.format(p.dateNaissance, 'dd/MM/yyyy') : '-'}">2000-01-01</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

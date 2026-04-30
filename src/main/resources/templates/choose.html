@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+    <title>Choix de destination</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/layout.css}">
+    <link rel="stylesheet" th:href="@{/css/choose.css}">
+</head>
+<body>
+<div th:replace="~{layout/fragments :: navbar}"></div>
+<div layout:fragment="content" class="py-2 choose-page">
+    <div class="page-hero choose-hero">
+        <h1 class="h3 mb-2 text-white"><i class="fas fa-compass me-2"></i>Choisissez votre destination</h1>
+        <p class="mb-0 text-white-50">Après connexion, sélectionnez la page que vous souhaitez ouvrir.</p>
+    </div>
+
+    <div class="row g-3 mt-1">
+        <div class="col-md-6" th:if="${isAdmin}">
+            <div class="card modern-card feature-card choose-card h-100">
+                <div class="card-body">
+                    <h2 class="h5">Espace administration</h2>
+                    <p class="mb-3">Ajouter des patients, médecins et créneaux.</p>
+                    <a class="btn btn-primary btn-modern" th:href="@{/admin}">Aller vers Admin</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6" th:unless="${isPatient}">
+            <div class="card modern-card feature-card choose-card h-100">
+                <div class="card-body">
+                    <h2 class="h5">Tableau de bord</h2>
+                    <p class="mb-3">Voir les statistiques et la vue globale.</p>
+                    <a class="btn btn-outline-primary btn-modern" th:href="@{/dashboard}">Aller au tableau de bord</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6" th:if="${isPatient}">
+            <div class="card modern-card feature-card choose-card h-100">
+                <div class="card-body">
+                    <h2 class="h5">Rendez-vous patient</h2>
+                    <p class="mb-3">Réserver un créneau disponible.</p>
+                    <a class="btn btn-success btn-modern" th:href="@{/patient/rdv/new}">Prendre un rendez-vous</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6" th:if="${isSecretaire}">
+            <div class="card modern-card feature-card choose-card h-100">
+                <div class="card-body">
+                    <h2 class="h5">Espace secrétariat</h2>
+                    <p class="mb-3">Consulter les patients, médecins et rendez-vous.</p>
+                    <div class="d-flex flex-wrap gap-2">
+                        <a class="btn btn-primary btn-modern" th:href="@{/rdv/list}">Planning</a>
+                        <a class="btn btn-outline-primary btn-modern" th:href="@{/patients/list}">Patients</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
