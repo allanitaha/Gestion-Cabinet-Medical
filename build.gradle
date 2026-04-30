@@ -1,0 +1,49 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.5'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.fst'
+version = '0.0.1-SNAPSHOT'
+description = 'cabinet.0'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.flywaydb:flyway-mysql'
+
+    // 🔐 SECURITY (OBLIGATOIRE)
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // ✔ validation
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // ✔ thymeleaf + security
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.flywaydb:flyway-core'
+
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
