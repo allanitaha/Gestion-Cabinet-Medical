@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+    <title>Rediger ordonnance</title>
+    <link rel="stylesheet" th:href="@{/css/layout.css}">
+    <link rel="stylesheet" th:href="@{/css/ordonnances.css}">
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="page-hero ordonnances-hero">
+        <div>
+            <div class="page-eyebrow">Prescription</div>
+            <h1 class="h2 mb-2 text-white"><i class="fas fa-file-medical me-2"></i>Rediger une ordonnance</h1>
+            <p class="mb-0 text-white-50" th:text="${rdv.patient.nom + ' ' + rdv.patient.prenom + ' - ' + #temporals.format(rdv.dateHeure, 'dd/MM/yyyy HH:mm')}">Patient - date</p>
+        </div>
+    </div>
+
+    <div class="alert alert-info" th:if="${ordonnance != null}">Une ordonnance existe deja pour ce rendez-vous. L'enregistrement remplacera son contenu.</div>
+    <div class="alert alert-danger" th:if="${errorMessage != null}" th:text="${errorMessage}">Erreur.</div>
+
+    <div class="card modern-card">
+        <div class="card-body">
+            <form th:action="@{/medecin/ordonnances}" method="post" class="row g-3">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                <input type="hidden" name="rdvId" th:value="${rdv.id}">
+
+                <div class="col-12">
+                    <label class="form-label">Observations</label>
+                    <textarea class="form-control" name="observations" rows="3" th:text="${ordonnance != null ? ordonnance.observations : ''}"></textarea>
+                </div>
+
+                <div class="col-12">
+                    <div class="ordonnance-lines">
+                        <div class="row g-2 ordonnance-line">
+                            <div class="col-md-4">
+                                <label class="form-label">Medicament</label>
+                                <input class="form-control" name="nomMedicament" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Posologie</label>
+                                <input class="form-control" name="posologie" placeholder="Ex: 1 comprime matin et soir">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Duree</label>
+                                <input class="form-control" name="duree" placeholder="Ex: 7 jours">
+                            </div>
+                        </div>
+                        <div class="row g-2 ordonnance-line">
+                            <div class="col-md-4"><input class="form-control" name="nomMedicament" placeholder="Medicament optionnel"></div>
+                            <div class="col-md-4"><input class="form-control" name="posologie" placeholder="Posologie"></div>
+                            <div class="col-md-4"><input class="form-control" name="duree" placeholder="Duree"></div>
+                        </div>
+                        <div class="row g-2 ordonnance-line">
+                            <div class="col-md-4"><input class="form-control" name="nomMedicament" placeholder="Medicament optionnel"></div>
+                            <div class="col-md-4"><input class="form-control" name="posologie" placeholder="Posologie"></div>
+                            <div class="col-md-4"><input class="form-control" name="duree" placeholder="Duree"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 d-flex gap-2">
+                    <button class="btn btn-primary" type="submit"><i class="fas fa-save me-2"></i>Enregistrer</button>
+                    <a class="btn btn-outline-secondary" th:href="@{/medecin/ordonnances}">Retour</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

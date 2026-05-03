@@ -29,6 +29,11 @@
                     <p class="mb-0 text-muted">Les rendez-vous les plus récents apparaissent en premier.</p>
                 </div>
             </div>
+            <div class="px-3 pt-3" th:if="${success != null || error != null || info != null}">
+                <div class="alert alert-success mb-0" th:if="${success != null}" th:text="${success}">Action effectuee.</div>
+                <div class="alert alert-danger mb-0" th:if="${error != null}" th:text="${error}">Erreur.</div>
+                <div class="alert alert-info mb-0" th:if="${info != null}" th:text="${info}">Information.</div>
+            </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
                     <table class="table table-striped table-modern align-middle mb-0">
@@ -41,11 +46,12 @@
                                 <th>Patient</th>
                                 <th>Médecin</th>
                                 <th>Motif</th>
+                                <th class="text-end">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr th:if="${rdvs == null || #lists.isEmpty(rdvs)}">
-                                <td colspan="7">
+                                <td colspan="8">
                                     <div class="empty-state">
                                         <i class="fas fa-calendar-xmark"></i>
                                         <p class="text-muted mb-0">Aucun rendez-vous pour le moment</p>
@@ -60,6 +66,21 @@
                                 <td th:text="${r.patient != null ? (r.patient.nom + ' ' + r.patient.prenom) : ''}">Patient</td>
                                 <td th:text="${r.medecin != null ? (r.medecin.nom + ' ' + r.medecin.prenom) : ''}">Médecin</td>
                                 <td th:text="${r.motif}">Motif</td>
+                                <td class="text-end">
+                                    <form th:if="${r.statut == T(com.gestion.cabinet.domain.RendezVousStatut).PLANIFIE || r.statut == T(com.gestion.cabinet.domain.RendezVousStatut).CONFIRME}"
+                                          th:action="@{/rdv/{id}/annuler(id=${r.id})}"
+                                          method="post"
+                                          class="d-inline"
+                                          onsubmit="return confirm('Annuler ce rendez-vous ?');">
+                                        <button type="submit" class="btn btn-outline-danger btn-sm action-btn">
+                                            <i class="fas fa-ban me-1"></i>Annuler
+                                        </button>
+                                    </form>
+                                    <span th:if="${r.statut == T(com.gestion.cabinet.domain.RendezVousStatut).ANNULE}"
+                                          class="text-muted small">Deja annule</span>
+                                    <span th:if="${r.statut == T(com.gestion.cabinet.domain.RendezVousStatut).TERMINE}"
+                                          class="text-muted small">Termine</span>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

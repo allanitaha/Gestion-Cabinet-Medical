@@ -100,7 +100,16 @@ body::before {
 
 .navbar-toggler { border-color: var(--line-color); }
 
+.user-actions {
+    align-items: center;
+    flex-direction: row;
+    gap: 0.6rem;
+}
+
 .user-menu {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
     color: var(--ink-color);
     background: #ffffff;
     border: 1px solid var(--line-color);
@@ -108,9 +117,93 @@ body::before {
     padding: 0.62rem 1rem;
     font-weight: 700;
     box-shadow: 0 14px 32px rgba(52, 120, 246, 0.1);
+    cursor: pointer;
+    text-decoration: none;
+    user-select: none;
 }
 
-.user-menu:hover { color: var(--primary-color); }
+.profile-button {
+    min-height: 46px;
+    pointer-events: auto;
+}
+
+.profile-button-content {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+}
+
+.profile-nav-item {
+    cursor: pointer;
+}
+
+.profile-section-title {
+    color: var(--ink-color);
+    font-size: 1rem;
+    font-weight: 850;
+    margin: 0;
+}
+
+.profile-section-note {
+    color: var(--muted-color);
+    font-size: 0.92rem;
+}
+
+.form-control[readonly],
+.form-control:disabled {
+    color: #5f7896;
+    background-color: #f3f8ff;
+    border-color: #e2edf9;
+    box-shadow: none;
+}
+
+.user-menu:hover,
+.user-menu:focus {
+    color: var(--primary-color);
+    border-color: #b9d7ff;
+    box-shadow: 0 18px 38px rgba(52, 120, 246, 0.18);
+    transform: translateY(-1px);
+}
+
+.user-menu:active {
+    transform: translateY(0);
+}
+
+.logout-form { margin: 0; }
+
+.logout-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border-radius: 50%;
+}
+
+.profile-avatar-sm,
+.profile-avatar-lg {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    object-fit: cover;
+    background: #f3f9ff;
+    border: 1px solid #d8e9ff;
+    border-radius: 50%;
+}
+
+.profile-avatar-sm {
+    width: 28px;
+    height: 28px;
+}
+
+.profile-avatar-lg {
+    width: 86px;
+    height: 86px;
+    font-size: 2rem;
+    color: var(--primary-color);
+    box-shadow: 0 18px 40px rgba(52, 120, 246, 0.16);
+}
 
 .app-nav-links {
     align-items: center;

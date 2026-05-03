@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+    <title>Ordonnance</title>
+    <link rel="stylesheet" th:href="@{/css/layout.css}">
+    <link rel="stylesheet" th:href="@{/css/ordonnances.css}">
+</head>
+<body>
+<div layout:fragment="content">
+    <div th:if="${ordonnance == null}" class="alert alert-danger">Ordonnance introuvable.</div>
+
+    <div th:if="${ordonnance != null}">
+        <div class="page-hero ordonnances-hero">
+            <div>
+                <div class="page-eyebrow">Ordonnance</div>
+                <h1 class="h2 mb-2 text-white" th:text="'Ordonnance du ' + ${#temporals.format(ordonnance.dateEmission, 'dd/MM/yyyy')}">Ordonnance</h1>
+                <p class="mb-0 text-white-50" th:text="${ordonnance.rendezVous.medecin.nom + ' ' + ordonnance.rendezVous.medecin.prenom}">Medecin</p>
+            </div>
+        </div>
+
+        <div class="card modern-card ordonnance-detail">
+            <div class="card-body">
+                <h2 class="h5">Observations</h2>
+                <p class="text-muted" th:text="${ordonnance.observations ?: 'Aucune observation.'}">Observations</p>
+
+                <h2 class="h5 mt-4">Traitement</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped align-middle ordonnance-table">
+                        <thead>
+                        <tr>
+                            <th>Medicament</th>
+                            <th>Posologie</th>
+                            <th>Duree</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="l : ${ordonnance.lignes}">
+                            <td class="fw-semibold" th:text="${l.nomMedicament}">Medicament</td>
+                            <td th:text="${l.posologie ?: '-'}">Posologie</td>
+                            <td th:text="${l.duree ?: '-'}">Duree</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <a class="btn btn-outline-secondary" th:href="@{/patient/ordonnances}">Retour</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

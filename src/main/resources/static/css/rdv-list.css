@@ -28,6 +28,10 @@
     text-align: center;
 }
 
+.action-btn {
+    white-space: nowrap;
+}
+
 .empty-state {
     text-align: center;
     padding: 3rem 1rem;

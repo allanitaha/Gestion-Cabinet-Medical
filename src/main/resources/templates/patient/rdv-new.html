@@ -23,6 +23,16 @@
         Rendez-vous créé avec succès.
     </div>
 
+    <div class="alert alert-success" th:if="${successMessage != null}" th:text="${successMessage}">
+        Action effectuee.
+    </div>
+    <div class="alert alert-info" th:if="${infoMessage != null}" th:text="${infoMessage}">
+        Information.
+    </div>
+    <div class="alert alert-danger" th:if="${errorMessage != null}" th:text="${errorMessage}">
+        Erreur.
+    </div>
+
     <div class="alert alert-danger" th:if="${param.error}">
         Erreur: <span th:text="${param.error}">error</span>
     </div>
@@ -74,6 +84,54 @@
                     </button>
                 </div>
             </form>
+        </div>
+    </div>
+    <div class="card modern-card rdv-new-card mt-4">
+        <div class="card-header">
+            <h2 class="h5 mb-1">Mes rendez-vous</h2>
+            <p class="text-muted mb-0">Annulation possible uniquement au moins 24h avant l'heure prevue.</p>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-striped align-middle mb-0 patient-rdv-table">
+                    <thead>
+                        <tr>
+                            <th>Date / Heure</th>
+                            <th>Medecin</th>
+                            <th>Motif</th>
+                            <th>Statut</th>
+                            <th class="text-end">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:if="${mesRendezVous == null || #lists.isEmpty(mesRendezVous)}">
+                            <td colspan="5" class="text-center text-muted py-4">Aucun rendez-vous reserve.</td>
+                        </tr>
+                        <tr th:each="r : ${mesRendezVous}">
+                            <td class="fw-semibold" th:text="${r.dateHeure != null ? #temporals.format(r.dateHeure, 'dd/MM/yyyy HH:mm') : '-'}">01/01/2026 10:00</td>
+                            <td th:text="${r.medecin != null ? (r.medecin.nom + ' ' + r.medecin.prenom) : '-'}">Medecin</td>
+                            <td th:text="${r.motif ?: '-'}">Motif</td>
+                            <td><span class="badge text-bg-info" th:text="${r.statut}">PLANIFIE</span></td>
+                            <td class="text-end">
+                                <form th:if="${(r.statut == T(com.gestion.cabinet.domain.RendezVousStatut).PLANIFIE || r.statut == T(com.gestion.cabinet.domain.RendezVousStatut).CONFIRME) && (r.dateHeure.isAfter(cancelDeadline) || r.dateHeure.equals(cancelDeadline))}"
+                                      th:action="@{/patient/rdv/{id}/annuler(id=${r.id})}"
+                                      method="post"
+                                      class="d-inline"
+                                      onsubmit="return confirm('Annuler ce rendez-vous ?');">
+                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                                    <button type="submit" class="btn btn-outline-danger btn-sm patient-cancel-btn">
+                                        <i class="fas fa-ban me-1"></i>Annuler
+                                    </button>
+                                </form>
+                                <span th:if="${r.statut == T(com.gestion.cabinet.domain.RendezVousStatut).ANNULE}" class="text-muted small">Deja annule</span>
+                                <span th:if="${r.statut == T(com.gestion.cabinet.domain.RendezVousStatut).TERMINE}" class="text-muted small">Termine</span>
+                                <span th:if="${(r.statut == T(com.gestion.cabinet.domain.RendezVousStatut).PLANIFIE || r.statut == T(com.gestion.cabinet.domain.RendezVousStatut).CONFIRME) && r.dateHeure.isBefore(cancelDeadline)}"
+                                      class="text-muted small">Moins de 24h</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

@@ -54,11 +54,15 @@ CREATE TABLE users (
   password_hash VARCHAR(200) NOT NULL,
   role VARCHAR(20) NOT NULL,
   enabled TINYINT(1) NOT NULL,
+  profile_image_filename VARCHAR(255) NULL,
   patient_id BIGINT NULL,
+  medecin_id BIGINT NULL,
   PRIMARY KEY (id),
   UNIQUE KEY uk_user_username (username),
   UNIQUE KEY uk_user_patient (patient_id),
-  CONSTRAINT fk_user_patient FOREIGN KEY (patient_id) REFERENCES patients (id)
+  UNIQUE KEY uk_user_medecin (medecin_id),
+  CONSTRAINT fk_user_patient FOREIGN KEY (patient_id) REFERENCES patients (id),
+  CONSTRAINT fk_user_medecin FOREIGN KEY (medecin_id) REFERENCES medecins (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE rendez_vous (

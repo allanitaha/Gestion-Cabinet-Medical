@@ -8,5 +8,5 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long> {
 	Optional<AppUser> findByUsername(String username);
 	boolean existsByUsername(String username);
 	boolean existsByPatient_Id(Long patientId);
+	boolean existsByMedecin_Id(Long medecinId);
 }
-

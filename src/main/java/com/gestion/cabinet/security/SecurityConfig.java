@@ -20,13 +20,14 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http
 				.authorizeHttpRequests(auth -> auth
-						.requestMatchers("/login", "/register", "/error").permitAll()
+						.requestMatchers("/", "/login", "/register", "/error").permitAll()
 						.requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**").permitAll()
 						.requestMatchers("/admin/**").hasRole("ADMIN")
 						.requestMatchers("/patient/**").hasAnyRole("ADMIN", "PATIENT")
-						.requestMatchers("/patients/**", "/rdv/**").hasAnyRole("ADMIN", "SECRETAIRE")
-						.requestMatchers("/medecins/**").hasAnyRole("ADMIN", "PATIENT", "SECRETAIRE")
-						.requestMatchers("/dashboard", "/choose").hasAnyRole("ADMIN", "PATIENT", "SECRETAIRE")
+						.requestMatchers("/medecin/**").hasAnyRole("ADMIN", "MEDECIN")
+						.requestMatchers("/patients/**", "/rdv/**").hasAnyRole("ADMIN", "SECRETAIRE", "MEDECIN")
+						.requestMatchers("/medecins/**").hasAnyRole("ADMIN", "PATIENT", "SECRETAIRE", "MEDECIN")
+						.requestMatchers("/dashboard", "/choose").hasAnyRole("ADMIN", "PATIENT", "SECRETAIRE", "MEDECIN")
 						.anyRequest().authenticated()
 				)
 				.formLogin(form -> form

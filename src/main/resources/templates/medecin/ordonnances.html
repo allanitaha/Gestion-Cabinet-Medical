@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+    <title>Ordonnances medecin</title>
+    <link rel="stylesheet" th:href="@{/css/layout.css}">
+    <link rel="stylesheet" th:href="@{/css/ordonnances.css}">
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="page-hero ordonnances-hero">
+        <div>
+            <div class="page-eyebrow">Espace medecin</div>
+            <h1 class="h2 mb-2 text-white"><i class="fas fa-prescription-bottle-medical me-2"></i>Ordonnances</h1>
+            <p class="mb-0 text-white-50">Redigez les traitements a partir des rendez-vous patients.</p>
+        </div>
+    </div>
+
+    <div class="alert alert-success" th:if="${successMessage != null}" th:text="${successMessage}">Succes.</div>
+    <div class="alert alert-danger" th:if="${errorMessage != null}" th:text="${errorMessage}">Erreur.</div>
+
+    <div class="card modern-card mb-4">
+        <div class="card-header">
+            <h2 class="h5 mb-1">Rendez-vous</h2>
+            <p class="text-muted mb-0">Choisissez un rendez-vous pour creer ou modifier son ordonnance.</p>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-striped align-middle mb-0 ordonnance-table">
+                    <thead>
+                    <tr>
+                        <th>Date / Heure</th>
+                        <th>Patient</th>
+                        <th>Motif</th>
+                        <th>Statut</th>
+                        <th class="text-end">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${rendezVous == null || #lists.isEmpty(rendezVous)}">
+                        <td colspan="5" class="text-center text-muted py-4">Aucun rendez-vous.</td>
+                    </tr>
+                    <tr th:each="r : ${rendezVous}">
+                        <td class="fw-semibold" th:text="${#temporals.format(r.dateHeure, 'dd/MM/yyyy HH:mm')}">01/01/2026 10:00</td>
+                        <td th:text="${r.patient.nom + ' ' + r.patient.prenom}">Patient</td>
+                        <td th:text="${r.motif ?: '-'}">Motif</td>
+                        <td><span class="badge text-bg-info" th:text="${r.statut}">PLANIFIE</span></td>
+                        <td class="text-end">
+                            <a class="btn btn-primary btn-sm" th:href="@{/medecin/ordonnances/new/{id}(id=${r.id})}">
+                                <i class="fas fa-pen-to-square me-1"></i>Ordonnance
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="card modern-card">
+        <div class="card-header">
+            <h2 class="h5 mb-1">Ordonnances redigees</h2>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-striped align-middle mb-0 ordonnance-table">
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Patient</th>
+                        <th>Rendez-vous</th>
+                        <th>Medicaments</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${ordonnances == null || #lists.isEmpty(ordonnances)}">
+                        <td colspan="4" class="text-center text-muted py-4">Aucune ordonnance.</td>
+                    </tr>
+                    <tr th:each="o : ${ordonnances}">
+                        <td th:text="${#temporals.format(o.dateEmission, 'dd/MM/yyyy')}">01/01/2026</td>
+                        <td th:text="${o.rendezVous.patient.nom + ' ' + o.rendezVous.patient.prenom}">Patient</td>
+                        <td th:text="${#temporals.format(o.rendezVous.dateHeure, 'dd/MM/yyyy HH:mm')}">RDV</td>
+                        <td th:text="${o.lignes.size()} + ' ligne(s)'">1 ligne</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

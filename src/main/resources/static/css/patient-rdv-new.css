@@ -33,6 +33,20 @@
     min-width: 190px;
 }
 
+.rdv-new-page .patient-rdv-table th,
+.rdv-new-page .patient-rdv-table td {
+    padding: 0.95rem 1rem;
+    vertical-align: middle;
+}
+
+.rdv-new-page .patient-rdv-table .badge {
+    min-width: 86px;
+}
+
+.rdv-new-page .patient-cancel-btn {
+    white-space: nowrap;
+}
+
 @media (max-width: 768px) {
     .rdv-new-page .btn-modern {
         width: 100%;

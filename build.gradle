@@ -4,9 +4,9 @@ plugins {
     id 'io.spring.dependency-management' version '1.1.7'
 }
 
-group = 'com.fst'
+group = 'com.gestion.cabinet'
 version = '0.0.1-SNAPSHOT'
-description = 'cabinet.0'
+description = 'gestion-cabinet'
 
 java {
     toolchain {

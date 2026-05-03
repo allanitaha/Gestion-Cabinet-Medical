@@ -1,6 +1,7 @@
 package com.gestion.cabinet.security;
 
 import com.gestion.cabinet.domain.Patient;
+import com.gestion.cabinet.domain.Medecin;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -31,15 +32,22 @@ public class AppUser {
 	private String passwordHash;
 
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false, length = 20)
+	@Column(nullable = false, length = 20, columnDefinition = "varchar(20)")
 	private UserRole role;
 
 	@Column(nullable = false)
 	private boolean enabled = true;
 
+	@Column(name = "profile_image_filename", length = 255)
+	private String profileImageFilename;
+
 	@OneToOne(optional = true)
 	@JoinColumn(name = "patient_id", unique = true)
 	private Patient patient;
+
+	@OneToOne(optional = true)
+	@JoinColumn(name = "medecin_id", unique = true)
+	private Medecin medecin;
 
 	public Long getId() {
 		return id;
@@ -81,6 +89,14 @@ public class AppUser {
 		this.enabled = enabled;
 	}
 
+	public String getProfileImageFilename() {
+		return profileImageFilename;
+	}
+
+	public void setProfileImageFilename(String profileImageFilename) {
+		this.profileImageFilename = profileImageFilename;
+	}
+
 	public Patient getPatient() {
 		return patient;
 	}
@@ -88,5 +104,12 @@ public class AppUser {
 	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
-}
 
+	public Medecin getMedecin() {
+		return medecin;
+	}
+
+	public void setMedecin(Medecin medecin) {
+		this.medecin = medecin;
+	}
+}

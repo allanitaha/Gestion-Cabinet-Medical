@@ -10,13 +10,14 @@
 </head>
 <body>
 	<nav class="auth-navbar">
-		<a class="auth-brand" th:href="@{/login}">
+		<a class="auth-brand" th:href="@{/}">
 			<span><i class="fas fa-hospital-user"></i></span>
 			Clinique
 		</a>
 		<div class="auth-nav-links">
+			<a th:href="@{/}">Accueil</a>
 			<a th:href="@{/login}">Connexion</a>
-			<a class="btn btn-primary text-white" th:href="@{/register}">Compte patient</a>
+			<a class="btn btn-primary text-white" th:href="@{/register}">Creer un utilisateur</a>
 		</div>
 	</nav>
 	<div class="container py-4">
@@ -34,6 +35,9 @@
 						</div>
 						<div class="alert alert-success" th:if="${param.registered}">
 							Compte patient cree. Connectez-vous avec votre nom d'utilisateur.
+						</div>
+						<div class="alert alert-info" th:if="${param.doctor_pending}">
+							Compte medecin cree. Vous pourrez vous connecter apres validation par l'admin.
 						</div>
 						<div class="alert alert-danger" th:if="${param.error}">
 							Identifiants invalides. Veuillez reessayer.
@@ -60,7 +64,7 @@
 						</form>
 
 						<a class="btn btn-outline-primary w-100 mt-3" th:href="@{/register}">
-							<i class="fas fa-user-plus"></i> Creer un compte patient
+							<i class="fas fa-user-plus"></i> Creer un utilisateur
 						</a>
 
 						<div class="divider"></div>

@@ -37,7 +37,16 @@
                 </li>
             </ul>
             <div class="d-flex align-items-center gap-3">
-                <span class="user-menu"><i class="fas fa-user-circle me-2"></i><span th:text="${#authentication != null ? #authentication.name : 'Utilisateur'}">User</span></span>
+                <a class="user-menu profile-button" th:href="@{/profile}" title="Modifier mon profil">
+                    <span class="profile-button-content">
+                        <img class="profile-avatar-sm"
+                             th:if="${currentUser != null && currentUser.profileImageFilename != null}"
+                             th:src="@{/profile/image/{filename}(filename=${currentUser.profileImageFilename})}"
+                             alt="Profil">
+                        <i class="fas fa-user-circle" th:if="${currentUser == null || currentUser.profileImageFilename == null}"></i>
+                        <span th:text="${#authentication != null ? #authentication.name : 'Utilisateur'}">User</span>
+                    </span>
+                </a>
                 <form th:action="@{/logout}" method="post">
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                     <button type="submit" class="btn btn-primary">Déconnexion</button>

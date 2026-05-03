@@ -7,6 +7,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.annotation.Order;
+import org.springframework.jdbc.core.ConnectionCallback;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.gestion.cabinet.domain.Creneau;
@@ -27,6 +30,23 @@ public class GestionCabinetApplication {
 	}
 
 	@Bean
+	@Order(0)
+	CommandLineRunner updateLegacyH2Schema(JdbcTemplate jdbcTemplate) {
+		return args -> jdbcTemplate.execute((ConnectionCallback<Void>) connection -> {
+			String url = connection.getMetaData().getURL();
+			if (url != null && url.startsWith("jdbc:h2:")) {
+				try (var statement = connection.createStatement()) {
+					statement.execute("ALTER TABLE users ALTER COLUMN role VARCHAR(20)");
+				} catch (Exception ignored) {
+					// Fresh databases may not need this compatibility update.
+				}
+			}
+			return null;
+		});
+	}
+
+	@Bean
+	@Order(1)
 	CommandLineRunner seedData(
 			AppUserRepository users,
 			PatientRepository patients,

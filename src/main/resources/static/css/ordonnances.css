@@ -1,0 +1,24 @@
+.ordonnances-hero {
+    margin-bottom: 1.25rem;
+}
+
+.ordonnance-table th,
+.ordonnance-table td {
+    padding: 0.95rem 1rem;
+    vertical-align: middle;
+}
+
+.ordonnance-line + .ordonnance-line {
+    margin-top: 0.9rem;
+}
+
+.ordonnance-detail .h5 {
+    color: #29415f;
+    font-weight: 800;
+}
+
+@media (max-width: 768px) {
+    .ordonnance-table .btn {
+        width: 100%;
+    }
+}
